@@ -31,6 +31,7 @@ public class ProvideResources {
 
     private AlunoAuthenticationSingleton aas;
     private RequestDiarioDisciplinas rddps;
+    private RequestComprovanteMatricula rcm;
 
     /**
      * Este método é responsável acessar sessão Diário do q-academico ifpb,
@@ -66,5 +67,28 @@ public class ProvideResources {
             String senha, String ano, String semestre) {
         aas = AlunoAuthenticationSingleton.getInstance(matricula, senha);
         rddps = new RequestDiarioDisciplinas(aas, ano, semestre);
+    }
+    
+    public String getComprovateMatricula(String matricula, String senha) {
+        requestComprovaterMatriculaConn(matricula, senha);
+        
+        try {
+            // tenta fazer a requsição para recuperar as informações
+            rcm.request();
+        } catch (DifferentPageException ex) {
+            /* Se a página a ser recuperada mudar (possivelmente pelo timeout 
+            da sessão do site) é refeita a conexão com o site e refeita a 
+            requesição */
+            requestComprovaterMatriculaConn(matricula, senha);
+            try{rcm.request();} catch (Exception e) {}
+        }
+        String path = rcm.requestComprovante();
+        System.out.println(path);
+        return path;
+    }
+    
+    private void requestComprovaterMatriculaConn(String matricula, String senha) {
+         aas = AlunoAuthenticationSingleton.getInstance(matricula, senha);
+         rcm = new RequestComprovanteMatricula(aas);
     }
 }

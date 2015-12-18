@@ -34,6 +34,20 @@ import javax.ws.rs.core.Response;
 @Path("/download")
 public class ComprovanteMatriculaResource {
 
+/**
+     * <p>
+     * Este método recupera o comprovante de matricula do aluno
+     * <p>
+     * Expemplo de URL:
+     * https://...qacademicoifpb-api/download/compr-matricula;matricula=123;senha=123
+     * <br/>
+     * Onde, 2015 = ano, 1 = semestre, all = todos os valores são recuperados,
+     * matricula = matricula do aluno, senha = senha do aluno.
+     *
+     * @param matricula do aluno
+     * @param senha do aluno
+     * @return 
+     */
     @GET
     @Path("/compr-matricula")
     @Produces("image/jpg")

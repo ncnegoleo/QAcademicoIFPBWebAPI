@@ -49,9 +49,12 @@ public class RequestComprovanteMatricula {
     }
 
     /**
-     * 
-     * @return
-     * @throws DifferentPageException 
+     * Este método garante a conexão com a página de comprovante de matricula do
+     * q-academico ifpb.
+     *
+     * @return true se a conexão for bem sucedida.
+     * @throws DifferentPageException, caso a página não seja a página
+     * requisitada!
      */
     public boolean request() throws DifferentPageException {
         try {
@@ -79,8 +82,11 @@ public class RequestComprovanteMatricula {
     }
     
     /**
+     * Este método é resposável por recuperar a imagem do comprovante do 
+     * site e salvar temporariamente no computador do usuário para que possa 
+     * ser provida pela API.
      * 
-     * @return 
+     * @return o caminho da imagem salva no computador.
      */
     public String requestComprovante() {
         img = currentPage.getFirstByXPath("//img");

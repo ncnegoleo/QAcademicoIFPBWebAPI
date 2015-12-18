@@ -62,13 +62,22 @@ public class ProvideResources {
     }
     
     /* este método serve para fazer o login e acessar a sessão Diário no
-    q academico ifpb */
+    q-academico ifpb */
     private void requestDisciplinasByPeriodoConn(String matricula,
             String senha, String ano, String semestre) {
         aas = AlunoAuthenticationSingleton.getInstance(matricula, senha);
         rddps = new RequestDiarioDisciplinas(aas, ano, semestre);
     }
     
+    /**
+     * Este método é responsável acessar a página de comprovante de matricula 
+     * do q-academico ifpb e recuperar a imagem do comprovate e provê-la para 
+     * a API.
+     * 
+     * @param matricula do aluno.
+     * @param senha do aluno.
+     * @return O caminho da imagem do comprovante.
+     */
     public String getComprovateMatricula(String matricula, String senha) {
         requestComprovaterMatriculaConn(matricula, senha);
         
@@ -87,6 +96,8 @@ public class ProvideResources {
         return path;
     }
     
+    /* este método serve para fazer o login e acessar a página de comprovante 
+    de matricula no q-academico ifpb */
     private void requestComprovaterMatriculaConn(String matricula, String senha) {
          aas = AlunoAuthenticationSingleton.getInstance(matricula, senha);
          rcm = new RequestComprovanteMatricula(aas);
